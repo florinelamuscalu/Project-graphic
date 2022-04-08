@@ -1,0 +1,33 @@
+﻿  Source.cpp
+C:\GL\Project2\Project2\Source.cpp(40,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(55,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(56,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(60,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(61,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(72,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(77,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(78,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(108,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(109,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(113,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(114,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(126,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(131,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(132,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(161,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(162,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(166,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(167,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(179,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(184,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(185,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(213,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(214,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(218,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(219,22): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(231,27): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(236,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(237,21): warning C4244: '=': conversion from 'double' to 'GLint', possible loss of data
+C:\GL\Project2\Project2\Source.cpp(260,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\GL\Project2\Project2\Source.cpp(357,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Project2.vcxproj -> C:\GL\Project2\Debug\Project2.exe
