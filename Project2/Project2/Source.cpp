@@ -11,7 +11,7 @@ const double TWO_PI = 6.2831853;
 const double PI = 3.1415926;
 
 GLsizei winWidth = 1150, winHeight = 750;
-GLuint regHexiii, regHexiv, regHexv, regHexvi, cerc, cercII, cercIII, cercIV;
+GLuint regHexiii, regHexiv, regHexv, regHexvi, cerc, cercII, cercIII, cercIV, regHex;
 static GLfloat rotTheta = 0.0;
 int dif = 1;
 //FACTORI TRANSFORMARI
@@ -172,7 +172,7 @@ static void init(void)
 	glEnd();
 	glEndList();
 
-	
+
 	cercIII = glGenLists(1);
 	glNewList(cercIII, GL_COMPILE);
 	glPolygonMode(GL_FRONT, GL_FILL);
@@ -223,8 +223,8 @@ static void init(void)
 	}
 	glEnd();
 	glEndList();
-	
-	
+
+
 	cercIV = glGenLists(1);
 	glNewList(cercIV, GL_COMPILE);
 	glPolygonMode(GL_FRONT, GL_FILL);
@@ -240,7 +240,55 @@ static void init(void)
 	}
 	glEnd();
 	glEndList();
+
+
+
+	// desenare cap 
+
 	
+	dif = 0;
+	regHex = glGenLists(1);
+	glNewList(regHex, GL_COMPILE);
+	copie = 0;
+	glPolygonMode(GL_FRONT, GL_LINE);
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	for (k = 0; k < 200; k++)
+	{
+
+		hexTheta = TWO_PI * k / 80;
+		if (k - copie == 5 && dif == 0) {
+			dif = 1;
+			copie = k;
+		}
+		if (k - copie == 5 && dif == 1) {
+			dif = 0;
+			copie = k;
+		}
+		if (dif) {
+			hexVertex.x = 125 + 30 * cos(hexTheta);
+			hexVertex.y = 235 + 30 * sin(hexTheta);
+			glVertex2i(hexVertex.x, hexVertex.y);
+		}
+		else {
+			hexVertex.x = 125 + 24 * cos(hexTheta);
+			hexVertex.y = 235 + 24 * sin(hexTheta);
+			glVertex2i(hexVertex.x, hexVertex.y);
+		}
+
+
+		hexTheta = TWO_PI * k / 200;
+
+		hexVertex.x = 127 + 100 * cos(hexTheta);
+		hexVertex.y = 120 + 150 * sin(hexTheta);
+
+		glVertex2i(hexVertex.x, hexVertex.y);
+	}
+	glEnd();
+	glEndList();
+
+
+
 
 }
 
@@ -285,9 +333,19 @@ void displayHex(void)
 	glCallList(cercII);
 	glCallList(cercIII);
 	glCallList(cercIV);
+	glCallList(regHex);
 
 	glutSwapBuffers();
 	glFlush();
+
+	// cap
+	//glCallList(regHex);
+	//glPopMatrix();
+	//glColor3f(0.0, 0.0, 0.0);
+	//glRasterPos2i(120.0, 120.0);
+	//glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, '1');
+	//glutSwapBuffers();
+	//glFlush();
 }
 
 void miscad(void)
