@@ -245,37 +245,13 @@ static void init(void)
 
 	// desenare cap 
 
-	
-	dif = 0;
 	regHex = glGenLists(1);
 	glNewList(regHex, GL_COMPILE);
-	copie = 0;
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
 	for (k = 0; k < 200; k++)
 	{
-
-		hexTheta = TWO_PI * k / 80;
-		if (k - copie == 5 && dif == 0) {
-			dif = 1;
-			copie = k;
-		}
-		if (k - copie == 5 && dif == 1) {
-			dif = 0;
-			copie = k;
-		}
-		if (dif) {
-			hexVertex.x = 125 + 30 * cos(hexTheta);
-			hexVertex.y = 235 + 30 * sin(hexTheta);
-			glVertex2i(hexVertex.x, hexVertex.y);
-		}
-		else {
-			hexVertex.x = 125 + 24 * cos(hexTheta);
-			hexVertex.y = 235 + 24 * sin(hexTheta);
-			glVertex2i(hexVertex.x, hexVertex.y);
-		}
-
 
 		hexTheta = TWO_PI * k / 200;
 
@@ -286,9 +262,6 @@ static void init(void)
 	}
 	glEnd();
 	glEndList();
-
-
-
 
 }
 
@@ -338,7 +311,7 @@ void displayHex(void)
 	glutSwapBuffers();
 	glFlush();
 
-	// cap
+	//cap
 	//glCallList(regHex);
 	//glPopMatrix();
 	//glColor3f(0.0, 0.0, 0.0);
@@ -346,6 +319,31 @@ void displayHex(void)
 	//glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, '1');
 	//glutSwapBuffers();
 	//glFlush();
+
+	//triunghi alb gura
+	/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1, 1, 1); 
+	glVertex2f(40.0, 30.0);
+	glVertex2f(70.0, 55.0);
+	glVertex2f(22.0, 100.0);
+	*/
+
+	
+
+	//linii buze
+
+	glLineWidth(3.0);
+	glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0); 
+	glVertex2i(100.0, 32.0); 
+	glVertex2i(672.0, 55.0);
+	glVertex2i(672.0, 55.0);
+	glVertex2i(224.0, 102.0);
+
+	glEnd();
+
+	glFlush();
 }
 
 void miscad(void)
