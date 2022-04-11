@@ -16,11 +16,13 @@ static GLfloat rotTheta = 0.0;
 int dif = 1;
 //FACTORI TRANSFORMARI
 double j = 0.0, i = 5.0, l = -6.0, m = -6.0;
-double ok = 1;
+
+// start game 
+double ok = 1.0, w  = 0.0, o = 0.0 ; // in loc de j vine w si in loc de i vine o
 double contor = 0;
 double rsj, rdj, rss, rds = 0;
-int vector[3] = { 0, 160, 320 };
-double height = vector[rand() % 3];
+int vector[5] = { 0,80, 160, 240, 320 };
+double height = vector[rand() % 5];
 double loc_vert = 800;
 int score = 0;
 double timp = 0.15;
@@ -32,6 +34,7 @@ public:
 	GLint x, y;
 };
 
+// afis "Game over" pe pozitia x,y
 void RenderString(float x, float y, void* font, const unsigned char* string)
 {
 
@@ -41,17 +44,18 @@ void RenderString(float x, float y, void* font, const unsigned char* string)
 	glutBitmapString(font, string);
 }
 
+//
 void startgame(void)
 {
 
-	if (height != j || (loc_vert > 90 || loc_vert < -90))
+	if (height != w || (loc_vert > 90 || loc_vert < -90))
 	{
 
-		if (i < -380)
+		if (o < -380)
 		{
-			i = 0;
+			o = 0;
 		}
-		i = i - 2 * timp;
+		o = o - 2 * timp;
 
 		loc_vert -= timp;
 
@@ -348,13 +352,15 @@ static void init(void)
 	ciocolata = glGenLists(1);
 	glNewList(ciocolata, GL_COMPILE);
 
+
 	glPushMatrix();
-	glTranslated(0.0, j, 0.0);
+	glTranslated(0.0, w, 0.0);
 
 
 
 	glColor3f(0.49, 0.20, 0.10);
 	glRecti(-25, -10, 25, 10);
+	glVertex2i(50, 100);
 
 	if (ok == 0)
 	{
@@ -372,10 +378,10 @@ static void init(void)
 		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, (const unsigned char*)"GAME OVER");
 	}
 
-	if (contor == 1 && (j != 160 && j != 320))
-		j = j + 1;
-	else if (contor == -1 && (j != 160 && j != 0))
-		j = j - 1;
+	if (contor == 1 && (w != 160 && w != 320))
+		w = w + 1;
+	else if (contor == -1 && (w != 160 && w != 0))
+		w = w - 1;
 	else {
 		contor = 0;
 
@@ -460,7 +466,51 @@ void miscad(void)
 
 }
 
+void miscasus(void)
+{
+	if (ok != 0)
+	{
+		if (w < 320)
+		{
+			contor = 1;
+			w += 1;
+		}
 
+		glutPostRedisplay();
+	}
+}
+
+void miscajos(void)
+{
+	if (ok != 0)
+	{
+		if (w > 0)
+		{
+			contor = -1;
+			w -= 1;
+
+
+		}
+
+		glutPostRedisplay();
+	}
+}
+
+void keyboard(int key, int x, int y)
+{
+
+
+	switch (key) {
+	case GLUT_KEY_UP:
+		miscasus();
+		break;
+	case GLUT_KEY_DOWN:
+		miscajos();
+		break;
+
+	}
+
+}
 void miscas(void)
 {
 	//FACTORI ROTATIE ROTITE
@@ -523,5 +573,6 @@ void main(int argc, char** argv)
 	glutDisplayFunc(displayHex);
 	glutReshapeFunc(winReshapeFcn);
 	glutMouseFunc(mouse);
+	glutSpecialFunc(keyboard);
 	glutMainLoop();
 }
