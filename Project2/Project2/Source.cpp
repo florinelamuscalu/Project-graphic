@@ -10,12 +10,21 @@ using namespace std;
 const double TWO_PI = 6.2831853;
 const double PI = 3.1415926;
 
-GLsizei winWidth = 1150, winHeight = 750;
-GLuint regHexiii, regHexiv, regHexv, regHexvi, cerc, cercII, cercIII, cercIV, regHex;
+GLsizei winWidth = 1150, winHeight = 750; // def fereastra
+GLuint regHexiii, regHexiv, regHexv, regHexvi, cerc, cercII, cercIII, cercIV, regHex, triunghi, tung, ciocolata;
 static GLfloat rotTheta = 0.0;
 int dif = 1;
 //FACTORI TRANSFORMARI
 double j = 0.0, i = 5.0, l = -6.0, m = -6.0;
+double ok = 1;
+double contor = 0;
+double rsj, rdj, rss, rds = 0;
+int vector[3] = { 0, 160, 320 };
+double height = vector[rand() % 3];
+double loc_vert = 800;
+int score = 0;
+double timp = 0.15;
+int pct = 1000;
 
 class scrPt
 {
@@ -23,6 +32,49 @@ public:
 	GLint x, y;
 };
 
+void RenderString(float x, float y, void* font, const unsigned char* string)
+{
+
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2f(x, y);
+
+	glutBitmapString(font, string);
+}
+
+void startgame(void)
+{
+
+	if (height != j || (loc_vert > 90 || loc_vert < -90))
+	{
+
+		if (i < -380)
+		{
+			i = 0;
+		}
+		i = i - 2 * timp;
+
+		loc_vert -= timp;
+
+		if (loc_vert < -150)
+		{
+			score += 100;
+			height = vector[rand() % 3];
+			cout << "Score:  " << score << endl;
+			loc_vert = 800;
+		}
+
+		if (score >= pct && pct <= 15000)
+		{
+			timp += 0.1;
+			pct += 1000;
+		}
+
+		glutPostRedisplay();
+	}
+	else {
+		ok = 0;
+	}
+}
 
 static void init(void)
 {
@@ -250,18 +302,93 @@ static void init(void)
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
+
+
 	for (k = 0; k < 200; k++)
 	{
-
 		hexTheta = TWO_PI * k / 200;
-
 		hexVertex.x = 127 + 100 * cos(hexTheta);
 		hexVertex.y = 120 + 150 * sin(hexTheta);
 
 		glVertex2i(hexVertex.x, hexVertex.y);
 	}
+
 	glEnd();
 	glEndList();
+
+	// desenare gura 
+	// am desenat un triunghi care sa formeze gura deschisa
+	triunghi = glGenLists(1);
+	glNewList(triunghi, GL_COMPILE_AND_EXECUTE);
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex2f(43.0, 30.0);
+	glVertex2f(90.0, 80.0);
+	glVertex2f(20.0, 100.0);
+	glEnd();
+	glEndList();
+
+
+	// am desenat cele doua linii care reprezinta forma gurii
+	tung = glGenLists(1);
+	glNewList(tung, GL_COMPILE_AND_EXECUTE);
+	glLineWidth(3.0);
+	glBegin(GL_LINES);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2i(45.0, 30.0);
+	glVertex2i(100.0, 80.0);
+	glVertex2i(100.0, 80.0);
+	glVertex2i(26.0, 100.0);
+	glEnd();
+	glEndList();
+
+	// desenare ciocolata
+
+	ciocolata = glGenLists(1);
+	glNewList(ciocolata, GL_COMPILE);
+
+	glPushMatrix();
+	glTranslated(0.0, j, 0.0);
+
+
+
+	glColor3f(0.49, 0.20, 0.10);
+	glRecti(-25, -10, 25, 10);
+
+	if (ok == 0)
+	{
+		rsj = 8;
+		rss = -8;
+		rdj = -8;
+		rds = 8;
+	}
+
+
+	glPopMatrix();
+	glPopMatrix();
+
+	if (ok == 0) {
+		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, (const unsigned char*)"GAME OVER");
+	}
+
+	if (contor == 1 && (j != 160 && j != 320))
+		j = j + 1;
+	else if (contor == -1 && (j != 160 && j != 0))
+		j = j - 1;
+	else {
+		contor = 0;
+
+	}
+
+	glPopMatrix();
+
+	startgame();
+	glutPostRedisplay();
+	glutSwapBuffers();
+	glEndList();
+	glFlush();
+
 
 }
 
@@ -306,44 +433,18 @@ void displayHex(void)
 	glCallList(cercII);
 	glCallList(cercIII);
 	glCallList(cercIV);
+
+
+	// apelare 
 	glCallList(regHex);
+	glCallList(triunghi);
+	glCallList(tung);
+	glCallList(ciocolata);
 
 	glutSwapBuffers();
 	glFlush();
 
-	//cap
-	//glCallList(regHex);
-	//glPopMatrix();
-	//glColor3f(0.0, 0.0, 0.0);
-	//glRasterPos2i(120.0, 120.0);
-	//glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, '1');
-	//glutSwapBuffers();
-	//glFlush();
 
-	//triunghi alb gura
-	/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_TRIANGLES);
-	glColor3f(1, 1, 1); 
-	glVertex2f(40.0, 30.0);
-	glVertex2f(70.0, 55.0);
-	glVertex2f(22.0, 100.0);
-	*/
-
-	
-
-	//linii buze
-
-	glLineWidth(3.0);
-	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0); 
-	glVertex2i(100.0, 32.0); 
-	glVertex2i(672.0, 55.0);
-	glVertex2i(672.0, 55.0);
-	glVertex2i(224.0, 102.0);
-
-	glEnd();
-
-	glFlush();
 }
 
 void miscad(void)
@@ -414,7 +515,7 @@ void main(int argc, char** argv)
 	glutInit(&argc, argv);
 	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowPosition(150, 150);
+	glutInitWindowPosition(150, 100);
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Hexagon - utilizarea listelor de display");
 
